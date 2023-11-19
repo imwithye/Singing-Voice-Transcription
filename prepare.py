@@ -9,14 +9,15 @@ DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
 
 
 def save_audio(name, link):
-    output = os.path.join(DATASET_DIR, "Mixture", name, "Mixture.webm")
+    output = os.path.join(DATASET_DIR, "original", name, "Mixture.mp3")
     if os.path.exists(output):
-        return name, True, None
+        return name, link, True
     try:
         os.makedirs(os.path.dirname(output), exist_ok=True)
         fetch_audio(output, link)
+        return name, link, True
     except:
-        return name, False
+        return name, link, False
 
 
 def main():
@@ -25,9 +26,13 @@ def main():
     results = Parallel(n_jobs=4)(
         delayed(save_audio)(name, link) for name, link in tqdm(links_json.items())
     )
+    count = 0
     for result in results:
-        if not result[1]:
-            print(result[0])
+        if result[2]:
+            continue
+        print("Dowload failed: ", result[0], result[1])
+        count += 1
+    print("Failed count: ", count)
 
 
 if __name__ == "__main__":

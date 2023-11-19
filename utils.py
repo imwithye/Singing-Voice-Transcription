@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from pathlib import Path
 import json
 import yt_dlp
-from tqdm import tqdm
 
 
 def read_json(json_file: str):
@@ -30,6 +29,13 @@ def fetch_audio(filepath: str, link: str):
     ydl_opts = {
         "outtmpl": str(fp.with_suffix("")) + ".%(ext)s",
         "format": "bestaudio/best",
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "320",
+            }
+        ],
         "logger": Logger(),
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
