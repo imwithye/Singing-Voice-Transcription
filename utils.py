@@ -1,7 +1,11 @@
 from __future__ import unicode_literals
 from pathlib import Path
+import numpy as np
 import json
+import librosa
 import yt_dlp
+import soundfile
+from spleeter import separator
 
 
 def read_json(json_file: str):
@@ -40,3 +44,14 @@ def fetch_audio(filepath: str, link: str):
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.extract_info(link, download=True)
+
+
+def extract_vocal(filepath: str, target_filepath: str):
+    y, sr = librosa.core.load(filepath, sr=None)
+    if sr != 44100:
+        y = librosa.core.resample(y=y, orig_sr=sr, target_sr=44100)
+    waveform = np.expand_dims(y, axis=1)
+    prediction = separator.separate(waveform)
+    vocal = librosa.core.to_mono(prediction["vocals"].T)
+    vocal = np.clip(vocal, -1.0, 1.0)
+    soundfile.write(target_filepath, vocal, 44100, subtype="PCM_16")
