@@ -49,11 +49,6 @@ def fetch_audio(filepath: str, link: str):
 
 def extract_vocal(filepath: str, target_filepath: str):
     separator = Separator("spleeter:2stems")
-    # y, sr = librosa.core.load(filepath, sr=None)
-    # if sr != 44100:
-    #     y = librosa.core.resample(y=y, orig_sr=sr, target_sr=44100)
-    # waveform = np.expand_dims(y, axis=1)
-
     audio_loader = AudioAdapter.default()
     sample_rate = 44100
     waveform, _ = audio_loader.load(filepath, sample_rate=sample_rate)

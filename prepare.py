@@ -44,7 +44,7 @@ def extract_audio(name):
         return False, f"Extract failed {name}: {fp}"
 
 
-def main():
+def prepare_dataset():
     links_json_file = os.path.join(PROJECT_DIR, "links.json")
     links_json = read_json(links_json_file)
     results = Parallel(n_jobs=4)(
@@ -58,4 +58,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    prepare_dataset()
