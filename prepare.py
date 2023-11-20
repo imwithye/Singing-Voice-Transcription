@@ -41,7 +41,7 @@ def extract_audio(name):
         extract_vocal(fp, output)
         return True, None
     except:
-        return False, f"Download failed {name}: {fp}"
+        return False, f"Extract failed {name}: {fp}"
 
 
 def main():
@@ -51,8 +51,8 @@ def main():
         delayed(save_audio)(name, link) for name, link in tqdm(links_json.items())
     )
     _show_errors(results)
-    results = Parallel(n_jobs=4)(
-        delayed(extract_audio)(name) for name, link in tqdm(links_json.items())
+    results = Parallel(n_jobs=1)(
+        delayed(extract_audio)(name) for name, _ in tqdm(links_json.items())
     )
     _show_errors(results)
 
