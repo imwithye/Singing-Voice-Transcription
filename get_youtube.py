@@ -69,7 +69,9 @@ def main():
         delayed(get_youtube)(idx, "train") for idx in tqdm(range(1, 401))
     )
     failed = [r for r in results if not r[0]]
-    print(f"Failed to download {len(failed)} songs, {len(results) - len(failed)} songs downloaded")
+    print(
+        f"Failed to download {len(failed)} songs, {len(results) - len(failed)} songs downloaded"
+    )
     for f in failed:
         print(f[1])
 
@@ -79,7 +81,9 @@ def main():
         delayed(get_youtube)(idx, "valid") for idx in tqdm(range(401, len(LINKS) + 1))
     )
     failed = [r for r in results if not r[0]]
-    print(f"Failed to download {len(failed)} songs, {len(results) - len(failed)} songs downloaded")
+    print(
+        f"Failed to download {len(failed)} songs, {len(results) - len(failed)} songs downloaded"
+    )
     for f in failed:
         print(f[1])
 
