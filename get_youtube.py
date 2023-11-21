@@ -9,7 +9,7 @@ import yt_dlp
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
 
-LINKS_JSON_FILE = os.path.join(PROJECT_DIR, "links.json")
+LINKS_JSON_FILE = os.path.join(DATASET_DIR, "links.json")
 LINKS = read_json(LINKS_JSON_FILE)
 
 
