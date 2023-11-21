@@ -1,61 +1,34 @@
 import os
-from utils import read_json, fetch_audio, extract_vocal
-from joblib import Parallel, delayed
-from tqdm import tqdm
 
-
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.getcwd()
 DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
+LABELS_JSON_FILE= os.path.join(DATASET_DIR, "labeled.json")
+print("Project directory: ", PROJECT_DIR)
+print("Dataset directory: ", DATASET_DIR)
+print("Labels file: ", LABELS_JSON_FILE)
 
+from get_youtube import get_audios
+from do_spleeter import get_vocals
+from labeled_midi import get_midis
 
-def _show_errors(results):
-    count = 0
-    for result in results:
-        if result[0]:
-            continue
-        print(result[1])
-        count += 1
-    if count >= 0:
-        print("Failed count: ", count)
+# Get audio from youtube
+get_audios()
+# Get vocals from audio
+get_vocals()
+# Get midi from labeled vocals
+get_midis()
 
+from baseline import AudioDataset
+from utils import save_pkl
 
-def save_audio(name, link):
-    output = os.path.join(DATASET_DIR, "original", name, "Mixture.mp3")
-    if os.path.exists(output):
-        return True, None
-    try:
-        os.makedirs(os.path.dirname(output), exist_ok=True)
-        fetch_audio(output, link)
-        return True, None
-    except:
-        return False, f"Download failed {name}: {link}"
+print("Generating dataset in pkl file...")
 
+target_path = os.path.join(DATASET_DIR, "train.pkl")
+if not os.path.exists(target_path):
+    dataset = AudioDataset(gt_path=LABELS_JSON_FILE, data_dir=os.path.join(DATASET_DIR, "train"))
+    save_pkl(target_path, dataset)
 
-def extract_audio(name):
-    fp = os.path.join(DATASET_DIR, "original", name, "Mixture.mp3")
-    output = os.path.join(DATASET_DIR, "vocal", name, "Mixture.wav")
-    if os.path.exists(output):
-        return True, None
-    try:
-        os.makedirs(os.path.dirname(output), exist_ok=True)
-        extract_vocal(fp, output)
-        return True, None
-    except:
-        return False, f"Extract failed {name}: {fp}"
-
-
-def prepare_dataset():
-    links_json_file = os.path.join(PROJECT_DIR, "links.json")
-    links_json = read_json(links_json_file)
-    results = Parallel(n_jobs=4)(
-        delayed(save_audio)(name, link) for name, link in tqdm(links_json.items())
-    )
-    _show_errors(results)
-    results = Parallel(n_jobs=1)(
-        delayed(extract_audio)(name) for name, _ in tqdm(links_json.items())
-    )
-    _show_errors(results)
-
-
-if __name__ == "__main__":
-    prepare_dataset()
+target_path = os.path.join(DATASET_DIR, "valid.pkl")
+if not os.path.exists(target_path):
+    dataset = AudioDataset(gt_path=LABELS_JSON_FILE, data_dir=os.path.join(DATASET_DIR, "valid"))
+    save_pkl(target_path, dataset)
