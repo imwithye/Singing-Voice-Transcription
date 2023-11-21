@@ -62,7 +62,7 @@ def cleanup(dir):
             shutil.rmtree(parent)
 
 
-def main():
+def get_audios():
     print("Downloading training set")
     # song #1~#400 are training set
     results = Parallel(n_jobs=4)(
@@ -94,4 +94,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    get_audios()

@@ -26,7 +26,7 @@ def do_spleeter(filepath, output):
     soundfile.write(output, voc, 44100, subtype="PCM_16")
 
 
-def main():
+def get_vocals():
     count = 0
     for idx in tqdm(range(1, len(LINKS) + 1)):
         input = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
@@ -47,4 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    get_vocals()

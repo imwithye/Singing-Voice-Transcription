@@ -10,7 +10,7 @@ LABELED_JSON_FILE = os.path.join(DATASET_DIR, "labeled.json")
 LABELED_JSON = read_json(LABELED_JSON_FILE)
 
 
-def main():
+def get_midis():
     count = 0
     for i in tqdm(range(1, len(LABELED_JSON) + 1)):
         if str(i) not in LABELED_JSON:
@@ -41,4 +41,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    get_midis()
