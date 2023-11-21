@@ -4,3 +4,4 @@ yt-dlp
 librosa
 soundfile
 spleeter
+torch-summary
