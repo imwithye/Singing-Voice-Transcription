@@ -4,7 +4,6 @@ import librosa
 import numpy as np
 import soundfile
 from spleeter.separator import Separator
-from spleeter.audio.adapter import AudioAdapter
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
@@ -28,7 +27,7 @@ def do_spleeter(filepath):
     soundfile.write(output, vocal, 44100, subtype="PCM_16")
 
 
-if __name__ == "__main__":
+def main():
     for idx in range(1, len(LINKS) + 1):
         train = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
         if os.path.exists(train):
@@ -36,3 +35,7 @@ if __name__ == "__main__":
         valid = os.path.join(DATASET_DIR, "valid", str(idx), "Mixture.mp3")
         if os.path.exists(valid):
             do_spleeter(valid)
+
+
+if __name__ == "__main__":
+    main()

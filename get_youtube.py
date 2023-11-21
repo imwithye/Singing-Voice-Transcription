@@ -53,15 +53,16 @@ def get_youtube(idx, dir):
     except:
         return False, f"Download failed for idx {idx}: {link}"
 
+
 def cleanup(dir):
-    for idx in range(1, len(LINKS)+1):
+    for idx in range(1, len(LINKS) + 1):
         output = os.path.join(DATASET_DIR, dir, str(idx), "Mixture.mp3")
         parent = os.path.dirname(output)
         if not os.path.exists(output) and os.path.exists(parent):
             shutil.rmtree(parent)
 
 
-if __name__ == "__main__":
+def main():
     print("Downloading training set")
     # song #1~#400 are training set
     results = Parallel(n_jobs=4)(
@@ -75,14 +76,18 @@ if __name__ == "__main__":
     print("Downloading training set")
     # song #401~ are valid set
     results = Parallel(n_jobs=4)(
-        delayed(get_youtube)(idx, "valid") for idx in tqdm(range(401, len(LINKS)+1))
+        delayed(get_youtube)(idx, "valid") for idx in tqdm(range(401, len(LINKS) + 1))
     )
     failed = [r for r in results if not r[0]]
     print(f"Failed to download {len(failed)} songs")
     for f in failed:
         print(f[1])
-    
+
     print("Cleaning up")
     # remove empty directories
     cleanup("train")
     cleanup("valid")
+
+
+if __name__ == "__main__":
+    main()
