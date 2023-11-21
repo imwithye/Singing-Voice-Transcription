@@ -3,6 +3,7 @@ from utils import read_json
 import librosa
 import numpy as np
 import soundfile
+from tqdm import tqdm
 from spleeter.separator import Separator
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,27 +15,31 @@ LINKS = read_json(LINKS_JSON_FILE)
 separator = Separator("spleeter:2stems")
 
 
-def do_spleeter(filepath):
-    dirname = os.path.dirname(filepath)
-    output = os.path.join(dirname, "Vocals.mp3")
+def do_spleeter(filepath, output):
     y, sr = librosa.core.load(filepath, sr=None, mono=True)
     if sr != 44100:
         y = librosa.core.resample(y=y, orig_sr=sr, target_sr=44100)
     waveform = np.expand_dims(y, axis=1)
     prediction = separator.separate(waveform)
-    vocal = librosa.core.to_mono(prediction["vocals"].T)
-    vocal = np.clip(vocal, -1.0, 1.0)
-    soundfile.write(output, vocal, 44100, subtype="PCM_16")
+    voc = librosa.core.to_mono(prediction["vocals"].T)
+    voc = np.clip(voc, -1.0, 1.0)
+    soundfile.write(output, voc, 44100, subtype="PCM_16")
 
 
 def main():
-    for idx in range(1, len(LINKS) + 1):
-        train = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
-        if os.path.exists(train):
-            do_spleeter(train)
-        valid = os.path.join(DATASET_DIR, "valid", str(idx), "Mixture.mp3")
-        if os.path.exists(valid):
-            do_spleeter(valid)
+    for idx in tqdm(range(1, len(LINKS) + 1)):
+        input = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
+        if os.path.exists(input):
+            dirname = os.path.dirname(input)
+            output = os.path.join(dirname, "Vocals.wav")
+            if not os.path.exists(output):
+                do_spleeter(input, output)
+        input = os.path.join(DATASET_DIR, "valid", str(idx), "Mixture.mp3")
+        if os.path.exists(input):
+            dirname = os.path.dirname(input)
+            output = os.path.join(dirname, "Vocals.wav")
+            if not os.path.exists(output):
+                do_spleeter(input, output)
 
 
 if __name__ == "__main__":
