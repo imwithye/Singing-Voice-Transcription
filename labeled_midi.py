@@ -1,5 +1,5 @@
 import os
-from utils import read_json
+from utils import read_json, save_json
 from tqdm import tqdm
 from utils import notes2mid
 
@@ -16,21 +16,27 @@ def main():
         if str(i) not in LABELED_JSON:
             continue
         notes = LABELED_JSON[str(i)]
-        vocols = os.path.join(DATASET_DIR, "train", str(i), "Vocals.wav")
-        if os.path.exists(vocols):
+        vocals = os.path.join(DATASET_DIR, "train", str(i), "Vocals.wav")
+        if os.path.exists(vocals):
             count += 1
             output = os.path.join(DATASET_DIR, "train", str(i), "Vocals.mid")
             if not os.path.exists(output):
                 mid = notes2mid(notes)
                 mid.save(output)
-                continue
-        vocols = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.wav")
-        if os.path.exists(vocols):
+            output = os.path.join(DATASET_DIR, "train", str(i), "Vocals.json")
+            if not os.path.exists(output):
+                save_json(output, notes)
+            continue
+        vocals = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.wav")
+        if os.path.exists(vocals):
             count += 1
             output = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.mid")
             if not os.path.exists(output):
                 mid = notes2mid(notes)
-                continue
+            output = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.json")
+            if not os.path.exists(output):
+                save_json(output, notes)
+            continue
     print(f"Done, {count} songs midi generated in total")
 
 

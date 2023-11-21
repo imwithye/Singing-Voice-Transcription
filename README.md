@@ -6,3 +6,9 @@ Preprocessing: voice aduio separated from polyphonic audio (songs with accompani
 Original and separated voice audio are available on [Google Drive](https://drive.google.com/drive/folders/1FHQdxzHQDZEeoNLndUh6Cea8rQc6GqKc?usp=share_link).  
 
 
+Install deps
+
+```
+apt install ffmpeg musescore3
+pip install -r requirements.txt
+```
