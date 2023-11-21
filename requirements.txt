@@ -1,7 +1,11 @@
-tqdm
-numpy
-yt-dlp
 librosa
+mido
+numpy
 soundfile
 spleeter
+torch
 torch-summary
+torchaudio
+torchvision
+tqdm
+yt-dlp
