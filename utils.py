@@ -1,4 +1,5 @@
 import json
+import pickle
 import mido
 import torch
 
@@ -13,6 +14,11 @@ def read_json(json_file: str):
 def save_json(json_file: str, data: dict):
     with open(json_file, "w") as f:
         json.dump(data, f, indent=4)
+
+
+def save_pkl(pkl_file: str, data):
+    with open(pkl_file, "wb") as f:
+        pickle.dump(data, f)
 
 
 def notes2mid(notes):

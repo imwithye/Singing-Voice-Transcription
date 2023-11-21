@@ -158,7 +158,7 @@ class AudioDataset(Dataset):
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
             for the_dir in os.listdir(data_dir):
-                wav_path = os.path.join(data_dir, the_dir, "Vocal.wav")
+                wav_path = os.path.join(data_dir, the_dir, "Vocals.wav")
 
                 y, sr = librosa.core.load(wav_path, sr=None, mono=True)
                 if sr != 44100:
