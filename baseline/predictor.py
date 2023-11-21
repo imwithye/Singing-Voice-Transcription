@@ -8,7 +8,7 @@ from pathlib import Path
 import pickle
 from tqdm import tqdm
 import numpy as np
-from net import EffNetb0
+from .net import EffNetb0
 
 FRAME_LENGTH = librosa.frames_to_time(1, sr=44100, hop_length=1024)
 

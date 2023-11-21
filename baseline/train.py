@@ -1,6 +1,6 @@
 import torch
 import argparse
-from predictor import EffNetPredictor
+from .predictor import EffNetPredictor
 
 
 def main(args):

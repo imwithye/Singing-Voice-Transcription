@@ -1,5 +1,8 @@
 import json
 import mido
+import torch
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def read_json(json_file: str):

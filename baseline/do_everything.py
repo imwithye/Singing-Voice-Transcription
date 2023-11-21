@@ -2,13 +2,13 @@ import sys
 import os
 import argparse
 import torch
-from predictor import EffNetPredictor
+from .predictor import EffNetPredictor
 
 import argparse
 import json
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))  # nopep8
-from data_utils.seq_dataset import SeqDataset
+from .data_utils.seq_dataset import SeqDataset
 from pathlib import Path
 from tqdm import tqdm
 import mido

@@ -1,7 +1,7 @@
 import argparse
 import pickle
 from pathlib import Path
-from data_utils import AudioDataset
+from .data_utils import AudioDataset
 
 import warnings
 
