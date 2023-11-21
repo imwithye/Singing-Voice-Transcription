@@ -27,19 +27,23 @@ def do_spleeter(filepath, output):
 
 
 def main():
+    count = 0
     for idx in tqdm(range(1, len(LINKS) + 1)):
         input = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
         if os.path.exists(input):
+            count += 1
             dirname = os.path.dirname(input)
             output = os.path.join(dirname, "Vocals.wav")
             if not os.path.exists(output):
                 do_spleeter(input, output)
         input = os.path.join(DATASET_DIR, "valid", str(idx), "Mixture.mp3")
         if os.path.exists(input):
+            count += 1
             dirname = os.path.dirname(input)
             output = os.path.join(dirname, "Vocals.wav")
             if not os.path.exists(output):
                 do_spleeter(input, output)
+    print(f"Done, {count} songs spleeted in total")
 
 
 if __name__ == "__main__":
