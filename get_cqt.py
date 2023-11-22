@@ -4,7 +4,11 @@ import librosa
 import numpy as np
 from joblib import Parallel, delayed
 from tqdm import tqdm
-from utils import read_json, get_vocals_filepath, LINKS_JSON_FILE
+from utils import (
+    read_json,
+    get_vocals_filepath,
+    LINKS_JSON_FILE,
+)
 
 LINKS = read_json(LINKS_JSON_FILE)
 
@@ -37,7 +41,6 @@ def compute_cqt(idx):
 
 
 def get_cqt():
-    print("Computing CQT")
     Parallel(n_jobs=4)(
         delayed(compute_cqt)(idx) for idx in tqdm(range(1, len(LINKS) + 1))
     )
