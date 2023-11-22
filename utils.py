@@ -1,8 +1,8 @@
 import os
 import json
-import pickle
 import mido
 import torch
+from music21 import midi
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,9 +23,13 @@ def save_json(json_file: str, data: dict):
         json.dump(data, f, indent=4)
 
 
-def save_pkl(pkl_file: str, data):
-    with open(pkl_file, "wb") as f:
-        pickle.dump(data, f)
+def music21_from_midi(fp):
+    mf = midi.MidiFile()
+    mf.open(fp)
+    mf.read()
+    mf.close()
+    s = midi.translate.midiFileToStream(mf)
+    return s
 
 
 def get_vocals_filepath(idx):
@@ -46,6 +50,7 @@ def get_midi_filepath(idx):
     if os.path.exists(valid):
         return valid
     return None
+
 
 def get_cqt_filepath(idx):
     train = os.path.join(TRAIN_DATASET_DIR, str(idx), "CQT.pt")

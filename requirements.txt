@@ -9,4 +9,5 @@ torchaudio
 torchvision
 tqdm
 yt-dlp
-jupyterlab
+notebook
+music21
