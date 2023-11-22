@@ -9,8 +9,8 @@ MODELS_SAVE_DIR = os.path.join(PROJECT_DIR, "models")
 
 def predict(predictor, idx):
     output = os.path.join(VALID_DATASET_DIR, str(idx), "Vocals_predict.json")
-    if os.path.exists(output):
-        return read_json(output)
+    # if os.path.exists(output):
+    #     return read_json(output)
 
     cqt_feature_path = os.path.join(VALID_DATASET_DIR, str(idx), "CQT_feature.pt")
     test_dataset = SeqDataset(cqt_feature_path, str(idx))
@@ -30,7 +30,7 @@ def predict(predictor, idx):
 
 if __name__ == "__main__":
     results = {}
-    predictor = EffNetPredictor(device=DEVICE, model_path=MODEL_PATH)
+    predictor = EffNetPredictor(device=DEVICE, model_path=os.path.join(PROJECT_DIR, "models", "effnet_10"))
     for the_dir in tqdm(os.listdir(VALID_DATASET_DIR)):
         result = predict(predictor, the_dir)
         results[the_dir] = result
