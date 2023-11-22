@@ -23,7 +23,6 @@ class EffNetPredictor:
         self.device = device
 
         if model_path is not None:
-            print("load")
             self.model = EffNetb0().to(self.device)
             self.model.load_state_dict(
                 torch.load(model_path, map_location=self.device), strict=False

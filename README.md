@@ -9,6 +9,6 @@ Original and separated voice audio are available on [Google Drive](https://drive
 Install deps
 
 ```
-apt install ffmpeg musescore3
+apt install ffmpeg musescore3 fluidsynth
 pip install -r requirements.txt
 ```
