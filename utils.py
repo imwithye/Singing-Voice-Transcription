@@ -47,6 +47,15 @@ def get_midi_filepath(idx):
         return valid
     return None
 
+def get_cqt_filepath(idx):
+    train = os.path.join(TRAIN_DATASET_DIR, str(idx), "CQT.pt")
+    if os.path.exists(train):
+        return train
+    valid = os.path.join(VALID_DATASET_DIR, str(idx), "CQT.pt")
+    if os.path.exists(valid):
+        return valid
+    return None
+
 
 def notes2mid(notes):
     mid = mido.MidiFile()
