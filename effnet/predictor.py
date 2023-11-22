@@ -34,18 +34,10 @@ class EffNetPredictor:
 
         print("Predictor initialized.")
 
-    def fit(
-        self,
-        train_dataset_dir,
-        valid_dataset_dir,
-        labels_filepath,
-        model_dir,
-        **training_args
-    ):
+    def fit(self, train_dataset_dir, valid_dataset_dir, model_dir, **training_args):
         """
         train_dataset_dir: The path to the training dataset directory
         valid_dataset_dir: The path to the validation dataset directory
-        labels_filepath: The path to the labels json file
         model_dir: The directory to save models for each epoch
         training_args:
           - batch_size
@@ -87,10 +79,16 @@ class EffNetPredictor:
         print("cur time: %.6f" % (time.time()))
 
         self.training_dataset = AudioDataset(
-            gt_path=labels_filepath, data_dir=self.train_dataset_dir
+            data_dir=self.train_dataset_dir,
+            limit=training_args["train_file_limit"]
+            if "train_file_limit" in training_args
+            else 1000000,
         )
         self.validation_dataset = AudioDataset(
-            gt_path=labels_filepath, data_dir=self.valid_dataset_dir
+            data_dir=self.valid_dataset_dir,
+            limit=training_args["valid_file_limit"]
+            if "valid_file_limit" in training_args
+            else 1000000,
         )
 
         self.train_loader = DataLoader(
@@ -167,7 +165,7 @@ class EffNetPredictor:
                 self.optimizer.step()
                 total_training_loss += loss.item()
 
-                if batch_idx % 5000 == 0 and batch_idx != 0:
+                if batch_idx % 10 == 0:
                     print(
                         epoch,
                         batch_idx,
