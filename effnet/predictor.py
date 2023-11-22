@@ -5,10 +5,10 @@ from torch.utils.data import DataLoader
 import librosa
 import time
 from pathlib import Path
-import pickle
 from tqdm import tqdm
 import numpy as np
 from .net import EffNetb0
+from .data_utils import AudioDataset
 
 FRAME_LENGTH = librosa.frames_to_time(1, sr=44100, hop_length=1024)
 
@@ -34,10 +34,18 @@ class EffNetPredictor:
 
         print("Predictor initialized.")
 
-    def fit(self, train_dataset_path, valid_dataset_path, model_dir, **training_args):
+    def fit(
+        self,
+        train_dataset_dir,
+        valid_dataset_dir,
+        labels_filepath,
+        model_dir,
+        **training_args
+    ):
         """
-        train_dataset_path: The path to the training dataset.pkl
-        valid_dataset_path: The path to the validation dataset.pkl
+        train_dataset_dir: The path to the training dataset directory
+        valid_dataset_dir: The path to the validation dataset directory
+        labels_filepath: The path to the labels json file
         model_dir: The directory to save models for each epoch
         training_args:
           - batch_size
@@ -47,8 +55,8 @@ class EffNetPredictor:
           - save_every_epoch
         """
         # Set paths
-        self.train_dataset_path = train_dataset_path
-        self.valid_dataset_path = valid_dataset_path
+        self.train_dataset_dir = train_dataset_dir
+        self.valid_dataset_dir = valid_dataset_dir
         self.model_dir = model_dir
         Path(self.model_dir).mkdir(parents=True, exist_ok=True)
 
@@ -78,11 +86,12 @@ class EffNetPredictor:
         print("Reading datasets...")
         print("cur time: %.6f" % (time.time()))
 
-        with open(self.train_dataset_path, "rb") as f:
-            self.training_dataset = pickle.load(f)
-
-        with open(self.valid_dataset_path, "rb") as f:
-            self.validation_dataset = pickle.load(f)
+        self.training_dataset = AudioDataset(
+            gt_path=labels_filepath, data_dir=self.train_dataset_dir
+        )
+        self.validation_dataset = AudioDataset(
+            gt_path=labels_filepath, data_dir=self.valid_dataset_dir
+        )
 
         self.train_loader = DataLoader(
             self.training_dataset,
