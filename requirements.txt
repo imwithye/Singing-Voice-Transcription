@@ -9,3 +9,4 @@ torchaudio
 torchvision
 tqdm
 yt-dlp
+jupyterlab

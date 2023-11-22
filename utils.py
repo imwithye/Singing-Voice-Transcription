@@ -10,7 +10,7 @@ DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
 TRAIN_DATASET_DIR = os.path.join(DATASET_DIR, "train")
 VALID_DATASET_DIR = os.path.join(DATASET_DIR, "valid")
 LINKS_JSON_FILE = os.path.join(DATASET_DIR, "links.json")
-LABELS_JSON_FILE = os.path.join(DATASET_DIR, "labeled.json")
+LABELS_JSON_FILE = os.path.join(DATASET_DIR, "labels.json")
 
 
 def read_json(json_file: str):
