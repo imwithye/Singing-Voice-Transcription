@@ -1,9 +1,16 @@
+import os
 import json
 import pickle
 import mido
 import torch
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
+TRAIN_DATASET_DIR = os.path.join(DATASET_DIR, "train")
+VALID_DATASET_DIR = os.path.join(DATASET_DIR, "valid")
+LINKS_JSON_FILE = os.path.join(DATASET_DIR, "links.json")
+LABELS_JSON_FILE = os.path.join(DATASET_DIR, "labeled.json")
 
 
 def read_json(json_file: str):
@@ -19,6 +26,24 @@ def save_json(json_file: str, data: dict):
 def save_pkl(pkl_file: str, data):
     with open(pkl_file, "wb") as f:
         pickle.dump(data, f)
+
+
+def get_vocals_filepath(idx):
+    train = os.path.join(TRAIN_DATASET_DIR, str(idx), "Vocals.wav")
+    if os.path.exists(train):
+        return train
+    valid = os.path.join(VALID_DATASET_DIR, str(idx), "Vocals.wav")
+    if os.path.exists(valid):
+        return valid
+
+
+def get_midi_filepath(idx):
+    train = os.path.join(TRAIN_DATASET_DIR, str(idx), "Vocals.mid")
+    if os.path.exists(train):
+        return train
+    valid = os.path.join(VALID_DATASET_DIR, str(idx), "Vocals.mid")
+    if os.path.exists(valid):
+        return valid
 
 
 def notes2mid(notes):

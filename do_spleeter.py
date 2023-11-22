@@ -1,15 +1,11 @@
 import os
-from utils import read_json
+from utils import read_json, TRAIN_DATASET_DIR, VALID_DATASET_DIR, LINKS_JSON_FILE
 import librosa
 import numpy as np
 import soundfile
 from tqdm import tqdm
 from spleeter.separator import Separator
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
-
-LINKS_JSON_FILE = os.path.join(DATASET_DIR, "links.json")
 LINKS = read_json(LINKS_JSON_FILE)
 
 separator = Separator("spleeter:2stems")
@@ -29,14 +25,14 @@ def do_spleeter(filepath, output):
 def get_vocals():
     count = 0
     for idx in tqdm(range(1, len(LINKS) + 1)):
-        input = os.path.join(DATASET_DIR, "train", str(idx), "Mixture.mp3")
+        input = os.path.join(TRAIN_DATASET_DIR, str(idx), "Mixture.mp3")
         if os.path.exists(input):
             count += 1
             dirname = os.path.dirname(input)
             output = os.path.join(dirname, "Vocals.wav")
             if not os.path.exists(output):
                 do_spleeter(input, output)
-        input = os.path.join(DATASET_DIR, "valid", str(idx), "Mixture.mp3")
+        input = os.path.join(VALID_DATASET_DIR, str(idx), "Mixture.mp3")
         if os.path.exists(input):
             count += 1
             dirname = os.path.dirname(input)

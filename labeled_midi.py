@@ -1,39 +1,41 @@
 import os
-from utils import read_json, save_json
+from utils import (
+    read_json,
+    save_json,
+    TRAIN_DATASET_DIR,
+    VALID_DATASET_DIR,
+    LABELS_JSON_FILE,
+)
 from tqdm import tqdm
 from utils import notes2mid
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_DIR = os.path.join(PROJECT_DIR, "dataset")
-
-LABELED_JSON_FILE = os.path.join(DATASET_DIR, "labeled.json")
-LABELED_JSON = read_json(LABELED_JSON_FILE)
+LABELS_JSON = read_json(LABELS_JSON_FILE)
 
 
 def get_midis():
     count = 0
-    for i in tqdm(range(1, len(LABELED_JSON) + 1)):
-        if str(i) not in LABELED_JSON:
+    for i in tqdm(range(1, len(LABELS_JSON) + 1)):
+        if str(i) not in LABELS_JSON:
             continue
-        notes = LABELED_JSON[str(i)]
-        vocals = os.path.join(DATASET_DIR, "train", str(i), "Vocals.wav")
+        notes = LABELS_JSON[str(i)]
+        vocals = os.path.join(TRAIN_DATASET_DIR, str(i), "Vocals.wav")
         if os.path.exists(vocals):
             count += 1
-            output = os.path.join(DATASET_DIR, "train", str(i), "Vocals.mid")
+            output = os.path.join(TRAIN_DATASET_DIR, str(i), "Vocals.mid")
             if not os.path.exists(output):
                 mid = notes2mid(notes)
                 mid.save(output)
-            output = os.path.join(DATASET_DIR, "train", str(i), "Vocals.json")
+            output = os.path.join(TRAIN_DATASET_DIR, str(i), "Vocals.json")
             if not os.path.exists(output):
                 save_json(output, notes)
             continue
-        vocals = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.wav")
+        vocals = os.path.join(VALID_DATASET_DIR, str(i), "Vocals.wav")
         if os.path.exists(vocals):
             count += 1
-            output = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.mid")
+            output = os.path.join(VALID_DATASET_DIR, str(i), "Vocals.mid")
             if not os.path.exists(output):
                 mid = notes2mid(notes)
-            output = os.path.join(DATASET_DIR, "valid", str(i), "Vocals.json")
+            output = os.path.join(VALID_DATASET_DIR, str(i), "Vocals.json")
             if not os.path.exists(output):
                 save_json(output, notes)
             continue
