@@ -23,6 +23,7 @@ class EffNetPredictor:
         self.device = device
 
         if model_path is not None:
+            print("load")
             self.model = EffNetb0().to(self.device)
             self.model.load_state_dict(
                 torch.load(model_path, map_location=self.device), strict=False
@@ -358,6 +359,8 @@ class EffNetPredictor:
         # Start predicting
         my_sm = torch.nn.Softmax(dim=0)
         self.model.eval()
+
+        print("Start predicting")
         with torch.no_grad():
             song_frames_table = {}
             raw_data = {}
