@@ -35,6 +35,7 @@ def get_vocals_filepath(idx):
     valid = os.path.join(VALID_DATASET_DIR, str(idx), "Vocals.wav")
     if os.path.exists(valid):
         return valid
+    return None
 
 
 def get_midi_filepath(idx):
@@ -44,6 +45,7 @@ def get_midi_filepath(idx):
     valid = os.path.join(VALID_DATASET_DIR, str(idx), "Vocals.mid")
     if os.path.exists(valid):
         return valid
+    return None
 
 
 def notes2mid(notes):
