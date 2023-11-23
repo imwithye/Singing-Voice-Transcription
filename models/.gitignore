@@ -1,2 +1,5 @@
 *
 !.gitignore
+!effnet_10
+!resnet_10
+!wideresnet_10
