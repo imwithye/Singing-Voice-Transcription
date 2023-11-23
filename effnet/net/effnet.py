@@ -1,5 +1,10 @@
+import os
 import torch.nn as nn
 import torch
+
+EFFNET_STATE_DICT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "effnet_state_dict"
+)
 
 
 class EffNetb0(nn.Module):

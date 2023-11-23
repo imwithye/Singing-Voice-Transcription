@@ -14,26 +14,14 @@ FRAME_LENGTH = librosa.frames_to_time(1, sr=44100, hop_length=1024)
 
 
 class EffNetPredictor:
-    def __init__(self, device="cuda:0", model_path=None):
+    def __init__(self, device, model):
         """
         Params:
         model_path: Optional pretrained model file
         """
         # Initialize model
         self.device = device
-
-        if model_path is not None:
-            # self.model = EffNetb0().to(self.device)
-            self.model = WideResidualNet().to(self.device)
-            self.model.load_state_dict(
-                torch.load(model_path, map_location=self.device), strict=False
-            )
-            print("Model read from {}.".format(model_path))
-
-        else:
-            # self.model = EffNetb0().to(self.device)
-            self.model = WideResidualNet().to(self.device)
-
+        self.model = model
         print("Predictor initialized.")
 
     def fit(self, train_dataset_dir, valid_dataset_dir, model_dir, **training_args):
@@ -167,10 +155,10 @@ class EffNetPredictor:
                 self.optimizer.step()
                 total_training_loss += loss.item()
 
-                if batch_idx % 10 == 0:
+                if batch_idx % 50 == 0:
                     print(
                         epoch,
-                        batch_idx,
+                        f"{batch_idx}/{self.iters_per_epoch}",
                         "time:",
                         time.time() - start_time,
                         "loss:",
