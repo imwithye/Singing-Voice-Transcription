@@ -27,5 +27,5 @@ predictor.fit(
     save_every_epoch=1,
     save_prefix="resnet",
     train_file_limit=100000,
-    valid_file_limit=10,
+    valid_file_limit=100000,
 )

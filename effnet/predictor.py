@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from tqdm import tqdm
 import numpy as np
-from .net import EffNetb0, ResNet18
+from .net import EffNetb0, ResNet18, WideResidualNet
 from .data_utils import AudioDataset
 
 FRAME_LENGTH = librosa.frames_to_time(1, sr=44100, hop_length=1024)
@@ -24,7 +24,7 @@ class EffNetPredictor:
 
         if model_path is not None:
             # self.model = EffNetb0().to(self.device)
-            self.model = ResNet18().to(self.device)
+            self.model = WideResidualNet().to(self.device)
             self.model.load_state_dict(
                 torch.load(model_path, map_location=self.device), strict=False
             )
@@ -32,7 +32,7 @@ class EffNetPredictor:
 
         else:
             # self.model = EffNetb0().to(self.device)
-            self.model = ResNet18().to(self.device)
+            self.model = WideResidualNet().to(self.device)
 
         print("Predictor initialized.")
 
