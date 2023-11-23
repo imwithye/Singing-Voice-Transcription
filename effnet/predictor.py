@@ -13,7 +13,7 @@ from .data_utils import AudioDataset
 FRAME_LENGTH = librosa.frames_to_time(1, sr=44100, hop_length=1024)
 
 
-class EffNetPredictor:
+class Predictor:
     def __init__(self, device, model):
         """
         Params:

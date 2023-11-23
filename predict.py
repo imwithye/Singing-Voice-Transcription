@@ -1,7 +1,7 @@
 import os
 import argparse
 from tqdm import tqdm
-from effnet import SeqDataset, EffNetPredictor
+from effnet import SeqDataset, Predictor
 from utils import (
     save_json,
     notes2mid,
@@ -37,7 +37,7 @@ def predict(predictor, idx, suffix):
 def predict_with_model(net, model_path):
     suffix = os.path.basename(model_path)
     results = {}
-    predictor = EffNetPredictor(device=DEVICE, model=load_model(net, model_path))
+    predictor = Predictor(device=DEVICE, model=load_model(net, model_path))
     for the_dir in tqdm(os.listdir(VALID_DATASET_DIR)):
         result = predict(predictor, the_dir, suffix)
         results[the_dir] = result

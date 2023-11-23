@@ -1,6 +1,6 @@
 import os
 import argparse
-from effnet import EffNetPredictor
+from effnet import Predictor
 from utils import (
     DEVICE,
     PROJECT_DIR,
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     print("Valid File Limit:", valid_file_limit)
     print()
 
-    predictor = EffNetPredictor(device=DEVICE, model=load_model(net))
+    predictor = Predictor(device=DEVICE, model=load_model(net))
     predictor.fit(
         train_dataset_dir=TRAIN_DATASET_DIR,
         valid_dataset_dir=VALID_DATASET_DIR,
