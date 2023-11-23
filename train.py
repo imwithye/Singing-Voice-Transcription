@@ -22,10 +22,10 @@ predictor.fit(
     model_dir=MODELS_SAVE_DIR,
     batch_size=256,
     valid_batch_size=200,
-    epoch=1,
+    epoch=10,
     lr=1e-4,
     save_every_epoch=1,
-    save_prefix="effnet",
-    train_file_limit=1,
-    valid_file_limit=1,
+    save_prefix="wideresnet",
+    train_file_limit=100000,
+    valid_file_limit=100000
 )
