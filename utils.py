@@ -108,3 +108,19 @@ def notes2mid(notes):
         cur_total_tick = cur_total_tick + note_on_length + note_off_length
 
     return mid
+
+
+def cleanup():
+    for the_dir in os.listdir(os.path.join(DATASET_DIR, "train")):
+        dir = os.path.join(DATASET_DIR, "train", the_dir)
+        for f in os.listdir(dir):
+            if f != "Mixture.mp3" and f != "Vocals.wav":
+                fp = os.path.join(dir, f)
+                os.remove(fp)
+
+    for the_dir in os.listdir(os.path.join(DATASET_DIR, "valid")):
+        dir = os.path.join(DATASET_DIR, "valid", the_dir)
+        for f in os.listdir(dir):
+            if f != "Mixture.mp3" and f != "Vocals.wav":
+                fp = os.path.join(dir, f)
+                os.remove(fp)
