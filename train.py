@@ -43,9 +43,8 @@ if __name__ == "__main__":
     predictor.fit(
         train_dataset_dir=TRAIN_DATASET_DIR,
         valid_dataset_dir=VALID_DATASET_DIR,
-        labels_filepath=LABELS_JSON_FILE,
         model_dir=MODELS_SAVE_DIR,
-        batch_size=1024,
+        batch_size=2048,
         valid_batch_size=200,
         epoch=10,
         lr=1e-4,
