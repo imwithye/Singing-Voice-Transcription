@@ -2,7 +2,12 @@ import os
 import json
 import mido
 import torch
-from music21 import midi
+from effnet import (
+    EffNetb0,
+    ResNet18,
+    WideResidualNet,
+    EFFNET_STATE_DICT,
+)
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,6 +18,21 @@ LINKS_JSON_FILE = os.path.join(DATASET_DIR, "links.json")
 LABELS_JSON_FILE = os.path.join(DATASET_DIR, "labels.json")
 
 
+def load_model(name, model_path=None):
+    if name == "effnet":
+        model = EffNetb0().to(DEVICE)
+        model.load_state_dict(
+            torch.load(EFFNET_STATE_DICT, map_location=DEVICE), strict=False
+        )
+    if name == "resnet":
+        model = ResNet18().to(DEVICE)
+    if name == "wideresnet":
+        model = WideResidualNet().to(DEVICE)
+    if model_path is not None:
+        model.load_state_dict(torch.load(model_path, map_location=DEVICE), strict=False)
+    return model
+
+
 def read_json(json_file: str):
     with open(json_file, "r") as f:
         return json.load(f)
@@ -21,15 +41,6 @@ def read_json(json_file: str):
 def save_json(json_file: str, data: dict):
     with open(json_file, "w") as f:
         json.dump(data, f, indent=4)
-
-
-def music21_from_midi(fp):
-    mf = midi.MidiFile()
-    mf.open(fp)
-    mf.read()
-    mf.close()
-    s = midi.translate.midiFileToStream(mf)
-    return s
 
 
 def get_vocals_filepath(idx):

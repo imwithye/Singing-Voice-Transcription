@@ -1,10 +1,11 @@
 import os
+import argparse
 from tqdm import tqdm
 from effnet import SeqDataset, EffNetPredictor
 from utils import (
-    read_json,
     save_json,
     notes2mid,
+    load_model,
     DEVICE,
     PROJECT_DIR,
     VALID_DATASET_DIR,
@@ -33,10 +34,10 @@ def predict(predictor, idx, suffix):
     return data
 
 
-def predict_with_model(model_path):
+def predict_with_model(net, model_path):
     suffix = os.path.basename(model_path)
     results = {}
-    predictor = EffNetPredictor(device=DEVICE, model_path=model_path)
+    predictor = EffNetPredictor(device=DEVICE, model=load_model(net, model_path))
     for the_dir in tqdm(os.listdir(VALID_DATASET_DIR)):
         result = predict(predictor, the_dir, suffix)
         results[the_dir] = result
@@ -45,6 +46,15 @@ def predict_with_model(model_path):
 
 
 if __name__ == "__main__":
-    # predict_with_model(os.path.join(PROJECT_DIR, "models", "effnet_10"))
-    predict_with_model(os.path.join(PROJECT_DIR, "models", "resnet_10"))
-    predict_with_model(os.path.join(PROJECT_DIR, "models", "wideresnet_10"))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--net")
+    parser.add_argument("--model")
+    args = parser.parse_args()
+    net = "effnet" if args.net is None else args.net
+    model = "effnet_10" if args.model is None else args.model
+
+    print("Net:", net)
+    print("Model:", model)
+    print()
+
+    predict_with_model(net, os.path.join(PROJECT_DIR, "models", model))
