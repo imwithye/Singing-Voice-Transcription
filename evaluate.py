@@ -205,13 +205,15 @@ class MirEval:
         )
 
 
-def main():
+def evaluate(prediction_file):
     my_eval = MirEval()
-    my_eval.prepare_data(LABELS_JSON_FILE, os.path.join(PROJECT_DIR, "predict.json"))
-    print(time.time())
-    my_eval.accuracy(onset_tolerance=0.1)
-    print(time.time())
+    my_eval.prepare_data(LABELS_JSON_FILE, prediction_file)
+    print(f"Evaluate Metrics of {os.path.basename(prediction_file)}")
+    my_eval.accuracy(onset_tolerance=0.05)
+    print()
 
 
 if __name__ == "__main__":
-    main()
+    for the_result in os.listdir(os.path.join(PROJECT_DIR, "results")):
+        if the_result.startswith("predict"):
+            evaluate(os.path.join(PROJECT_DIR, "results", the_result))

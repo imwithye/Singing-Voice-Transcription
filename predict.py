@@ -45,6 +45,6 @@ def predict_with_model(model_path):
 
 
 if __name__ == "__main__":
-    predict_with_model(os.path.join(PROJECT_DIR, "models", "effnet_10"))
+    # predict_with_model(os.path.join(PROJECT_DIR, "models", "effnet_10"))
     predict_with_model(os.path.join(PROJECT_DIR, "models", "resnet_10"))
     predict_with_model(os.path.join(PROJECT_DIR, "models", "wideresnet_10"))
