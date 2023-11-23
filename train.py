@@ -13,7 +13,8 @@ MODELS_SAVE_DIR = os.path.join(PROJECT_DIR, "models")
 from effnet import EffNetPredictor
 from utils import DEVICE
 
-predictor = EffNetPredictor(device=DEVICE, model_path=MODEL_PATH)
+# predictor = EffNetPredictor(device=DEVICE, model_path=MODEL_PATH)
+predictor = EffNetPredictor(device=DEVICE)
 predictor.fit(
     train_dataset_dir=TRAIN_DATASET_DIR,
     valid_dataset_dir=VALID_DATASET_DIR,
@@ -21,10 +22,10 @@ predictor.fit(
     model_dir=MODELS_SAVE_DIR,
     batch_size=256,
     valid_batch_size=200,
-    epoch=10,
+    epoch=1,
     lr=1e-4,
     save_every_epoch=1,
     save_prefix="effnet",
-    train_file_limit=10000,
-    valid_file_limit=10000,
+    train_file_limit=1,
+    valid_file_limit=1,
 )
