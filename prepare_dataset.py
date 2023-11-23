@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     prepare_dataset()
 
-    from effnet import AudioDataset
+    from net import AudioDataset
     from utils import TRAIN_DATASET_DIR, VALID_DATASET_DIR
 
     dataset = AudioDataset(data_dir=TRAIN_DATASET_DIR, limit=10)

@@ -4,7 +4,7 @@ from .labeled_midi import get_midis
 from .get_cqt import get_cqt_feature
 
 def prepare_dataset():
-    # get_audios()
-    # get_vocals()
+    get_audios()
+    get_vocals()
     get_midis()
-    # get_cqt_feature()
+    get_cqt_feature()
