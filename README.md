@@ -1,4 +1,10 @@
 # Project Group 17 Singing-Voice-Transcription
+
+Zhong Wenjun, A0255945R, e0962957@u.nus.edu
+Luo Dan, A0222782E, e0563823@u.nus.edu
+Bruce Ng, A0218204R, e0544240@u.nus.edu
+Gong Yiwei, A0228568N, e0674552@u.nus.edu
+
 Singing Voice Transcription for CS4347/CS5647
 
 This repo contains our implementation of the Singing Voice Transcription pipeline.

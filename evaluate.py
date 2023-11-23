@@ -207,7 +207,7 @@ def evaluate(prediction_file):
     my_eval = MirEval()
     my_eval.prepare_data(LABELS_JSON_FILE, prediction_file)
     print(f"Evaluate Metrics of {os.path.basename(prediction_file)}")
-    my_eval.accuracy(onset_tolerance=0.05)
+    my_eval.accuracy(onset_tolerance=0.1)
     print()
 
 
