@@ -361,11 +361,10 @@ class EffNetPredictor:
         my_sm = torch.nn.Softmax(dim=0)
         self.model.eval()
 
-        print("Start predicting")
         with torch.no_grad():
             song_frames_table = {}
             raw_data = {}
-            for batch_idx, batch in enumerate(tqdm(test_loader)):
+            for batch_idx, batch in enumerate(test_loader):
                 # Parse batch data
                 input_tensor = batch[0].to(self.device)
                 song_ids = batch[1]
