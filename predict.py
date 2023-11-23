@@ -30,8 +30,12 @@ def predict(predictor, idx):
 
 if __name__ == "__main__":
     results = {}
-    predictor = EffNetPredictor(device=DEVICE, model_path=os.path.join(PROJECT_DIR, "models", "effnet_10"))
+    predictor = EffNetPredictor(device=DEVICE, model_path=os.path.join(PROJECT_DIR, "models", "resnet_10"))
+    count = 0 
     for the_dir in tqdm(os.listdir(VALID_DATASET_DIR)):
         result = predict(predictor, the_dir)
         results[the_dir] = result
+        count += 1
+        # if count >= 10:
+        #     break
     save_json("predict.json", results)
