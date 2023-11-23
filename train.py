@@ -28,10 +28,10 @@ if __name__ == "__main__":
 
     net = "effnet" if args.net is None else args.net
     train_file_limit = (
-        1000000 if args.train_file_limit is None else args.train_file_limit
+        1000000 if args.train_file_limit is None else int(args.train_file_limit)
     )
     valid_file_limit = (
-        1000000 if args.valid_file_limit is None else args.valid_file_limit
+        1000000 if args.valid_file_limit is None else int(args.valid_file_limit)
     )
     print()
     print("Net:", net)
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         train_dataset_dir=TRAIN_DATASET_DIR,
         valid_dataset_dir=VALID_DATASET_DIR,
         model_dir=MODELS_SAVE_DIR,
-        batch_size=2048,
+        batch_size=512,
         valid_batch_size=200,
         epoch=10,
         lr=1e-4,

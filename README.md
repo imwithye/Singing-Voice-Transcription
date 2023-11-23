@@ -3,6 +3,14 @@ Singing Voice Transcription for CS4347/CS5647
 
 This repo contains our implementation of the Singing Voice Transcription pipeline.
 
+## TL;NR
+
+To see the result, run
+
+```
+python evaluate.py
+```
+
 ## Install Dependencies
 
 Do note that Python version must be 3.10
