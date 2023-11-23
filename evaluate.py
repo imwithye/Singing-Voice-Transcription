@@ -1,8 +1,6 @@
-import argparse
 from mir_eval import transcription, io, util
 import json
 import numpy as np
-import time
 import os
 from utils import LABELS_JSON_FILE, PROJECT_DIR
 

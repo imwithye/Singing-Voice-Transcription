@@ -1,7 +1,7 @@
 import os
 import argparse
 from tqdm import tqdm
-from effnet import SeqDataset, Predictor
+from net import SeqDataset, Predictor
 from utils import (
     save_json,
     notes2mid,

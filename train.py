@@ -1,6 +1,6 @@
 import os
 import argparse
-from effnet import Predictor
+from net import Predictor
 from utils import (
     DEVICE,
     PROJECT_DIR,

@@ -2,7 +2,7 @@ import os
 import json
 import mido
 import torch
-from effnet import (
+from net import (
     EffNetb0,
     ResNet18,
     WideResidualNet,
