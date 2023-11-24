@@ -71,7 +71,7 @@ def get_audios():
     for f in failed:
         print(f[1])
 
-    print("Downloading training set")
+    print("Downloading valid set")
     # song #401~ are valid set
     results = Parallel(n_jobs=4)(
         delayed(get_youtube)(idx, "valid") for idx in tqdm(range(401, len(LINKS) + 1))
