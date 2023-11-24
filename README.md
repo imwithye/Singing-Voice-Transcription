@@ -46,14 +46,6 @@ COn      0.814368 0.886349 0.844941
 gt note num: 30734.0 tr note num: 33343.0
 song number: 98
 
-Evaluate Metrics of predict_resnet_10.json
-         Precision Recall F1-score
-COnPOff  0.395889 0.495712 0.438723
-COnP     0.642451 0.807253 0.712909
-COn      0.727555 0.912077 0.806169
-gt note num: 30734.0 tr note num: 38407.0
-song number: 98
-
 Evaluate Metrics of predict_resnet_3.json
          Precision Recall F1-score
 COnPOff  0.525057 0.564603 0.542553
@@ -68,6 +60,14 @@ COnPOff  0.471846 0.544128 0.504113
 COnP     0.708213 0.818592 0.757293
 COn      0.790457 0.910861 0.843566
 gt note num: 30734.0 tr note num: 35243.0
+song number: 98
+
+Evaluate Metrics of predict_resnet_10.json
+         Precision Recall F1-score
+COnPOff  0.395889 0.495712 0.438723
+COnP     0.642451 0.807253 0.712909
+COn      0.727555 0.912077 0.806169
+gt note num: 30734.0 tr note num: 38407.0
 song number: 98
 ```
 
