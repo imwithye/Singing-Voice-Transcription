@@ -1,6 +1,6 @@
 *
 !.gitignore
-!predict_effnet_4.json
 !predict_effnet_10.json
+!predict_resnet_3.json
+!predict_resnet_5.json
 !predict_resnet_10.json
-!predict_wideresnet_10.json
