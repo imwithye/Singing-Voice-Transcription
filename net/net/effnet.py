@@ -2,11 +2,6 @@ import os
 import torch.nn as nn
 import torch
 
-EFFNET_STATE_DICT = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "effnet_state_dict"
-)
-
-
 class EffNetb0(nn.Module):
     def __init__(self, pitch_class=12, pitch_octave=4):
         super(EffNetb0, self).__init__()

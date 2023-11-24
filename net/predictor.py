@@ -155,7 +155,7 @@ class Predictor:
                 self.optimizer.step()
                 total_training_loss += loss.item()
 
-                if batch_idx % 50 == 0:
+                if batch_idx % 1000 == 0:
                     print(
                         epoch,
                         f"{batch_idx}/{self.iters_per_epoch}",

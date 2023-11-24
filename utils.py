@@ -6,7 +6,6 @@ from net import (
     EffNetb0,
     ResNet18,
     WideResidualNet,
-    EFFNET_STATE_DICT,
 )
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -21,9 +20,6 @@ LABELS_JSON_FILE = os.path.join(DATASET_DIR, "labels.json")
 def load_model(name, model_path=None):
     if name == "effnet":
         model = EffNetb0().to(DEVICE)
-        model.load_state_dict(
-            torch.load(EFFNET_STATE_DICT, map_location=DEVICE), strict=False
-        )
     if name == "resnet":
         model = ResNet18().to(DEVICE)
     if name == "wideresnet":
