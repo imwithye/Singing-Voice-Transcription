@@ -23,6 +23,7 @@ To run the prediction, run
 
 ```
 python predict.py --net effnet --model effnet_10
+python predict.py --net resnet --model resnet_3
 python predict.py --net resnet --model resnet_10
 ```
 
