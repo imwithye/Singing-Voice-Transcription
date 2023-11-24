@@ -9,12 +9,21 @@ Singing Voice Transcription for CS4347/CS5647
 
 This repo contains our implementation of the Singing Voice Transcription pipeline.
 
+Visualization of the result is available at `result_visualize.ipynb`.
+
 ## TL;NR
 
 To see the result, run
 
 ```
 python evaluate.py
+```
+
+To run the prediction, run
+
+```
+python predict.py --net effnet --model effnet_10
+python predict.py --net resnet --model resnet_10
 ```
 
 ## Install Dependencies
